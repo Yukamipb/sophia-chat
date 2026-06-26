@@ -78,7 +78,7 @@ func (a *HermesAPI) TestConnection() (string, error) {
 
 // SendMessage streams a chat completion and emits each chunk via Wails runtime events.
 func (a *HermesAPI) SendMessage(model, prompt string) (string, error) {
-	payload := fmt.Sprintf(`{"model":"%s","prompt":%q,"stream":true}`, model, prompt)
+	payload := fmt.Sprintf(`{"model":"%s","messages":[{"role":"user","content":%q}],"stream":true,"max_tokens":4096}`, model, prompt)
 
 	req, err := http.NewRequest("POST", a.baseURL+"/api/chat", strings.NewReader(payload))
 	if err != nil {
